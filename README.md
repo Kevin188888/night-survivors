@@ -1,5 +1,9 @@
 # Night Survivors — Core, Pictures, Growth, Waves, Sound and feel, Difficulty modes
 
+**Play in the browser: <https://kevin188888.github.io/night-survivors/>** (the `gh-pages`
+branch holds the built web version; the source is on `main`). The page loads Python and
+pygame-ce as WebAssembly, so it needs a few seconds and a click to start with sound.
+
 Run `python make_assets.py` and `python make_sounds.py` once to build `assets/` and
 `sounds/`, then run `python main.py` from this folder.
 Requires `pygame-ce` and `Pillow` (only for `make_assets.py`).
@@ -77,3 +81,13 @@ difficulties in `data/difficulties.json`, so retuning never needs a code change.
 mouse/touch events using an async loop.
 
 Run the rule tests with `python -m unittest`.
+
+## Rebuilding the browser version
+
+`python -m pygbag --build --disable-sound-format-error main.py` writes `build/web/`.
+Then two small fixes are needed in `build/web/index.html`, because pygbag 0.9.3 points at a
+CDN file that no longer exists: download `browserfs.min.js` from
+`https://pygame-web.github.io/archives/0.9/browserfs.min.js` into that folder and change the
+`<script src=...>` line to `browserfs.min.js`. Copy the folder to the `gh-pages` branch to
+publish it. `data/records.json` is packed into the bundle, so move it away before building if
+you do not want your own best runs online.
