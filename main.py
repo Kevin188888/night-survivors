@@ -212,7 +212,12 @@ class Sounds:
             for extension in (".ogg", ".wav"):
                 path = SOUNDS / f"{name}{extension}"
                 if path.exists():
-                    clip = pygame.mixer.Sound(path)
+                    try:
+                        clip = pygame.mixer.Sound(path)
+                    except pygame.error:
+                        # a browser build may not read every format, so the game stays silent
+                        print(f"{path.name} will not play here, so this one is skipped.")
+                        break
                     clip.set_volume(config["feel"]["volume"])
                     self.clips[name] = clip
                     break
