@@ -1,0 +1,196 @@
+{
+  "_说明": {
+    "怎么用": "这个文件放三种难度的数字。程序先把 data/game.json 全部读进来，再把下面某一档的 numbers 盖上去（字典一层层盖，数组整个替换）。所以 numbers 里只需要写“和标准难度不一样的数字”，没写的就用 game.json 的值。改完保存，重新运行 python main.py 就生效。",
+    "modes": "界面上从上到下显示的顺序就是这个列表的顺序（键盘 1、2、3 也按这个顺序）。",
+    "name": "程序内部用的名字（键盘 1、2、3 按这个顺序选）。",
+    "label": "开始界面按钮上的大字。",
+    "text": "按钮下面那行小字，给玩家看这一档改了什么。",
+    "numbers": "要盖掉的数字，写法完全和 game.json 一样：hero = 主角；enemies = 敌人；spawning = 刷怪（stages 是整张时间表，要改就得整段抄一份改）；run.victory_seconds = 活多久算赢；contact = 贴身伤害的间隔。",
+    "normal": "标准难度就是 game.json 本身，所以 numbers 是空的。",
+    "怎么测": "三档都用同一个机器人测过（脚本只跑规则，不打开窗口，结果写在 README 里）：机器人只会“远离人群、顺路捡宝石、血量低于一半就先治疗”，大概相当于一个普通玩家。结果是 EASY 12/12 胜，NORMAL 6/12 胜，HARD 2/12 胜、中位能活到 85 秒。注意：HARD 没有加敌人伤害，也没有把幽灵血量调高——实测发现幽灵只要从 15 血变成 18 血，八颗子弹的击杀速度就慢一档，45-75 秒的人群会滚起来，难度直接崩掉。所以 HARD 的压力全放在后半段的人群、1000 血的 boss 和更长的时间上。"
+  },
+  "modes": [
+    {
+      "name": "easy",
+      "label": "EASY",
+      "text": "90 seconds  -  softer enemies, fewer of them",
+      "numbers": {
+        "hero": {
+          "hp": 150
+        },
+        "run": {
+          "victory_seconds": 90
+        },
+        "xp": {
+          "first_level_cost": 4
+        },
+        "enemies": {
+          "bat": {
+            "hp": 6,
+            "damage": 3
+          },
+          "slime": {
+            "hp": 20
+          },
+          "ghost": {
+            "hp": 12
+          },
+          "demon": {
+            "hp": 400,
+            "damage": 12
+          }
+        },
+        "spawning": {
+          "stages": [
+            {
+              "from_seconds": 0,
+              "types": [
+                "bat"
+              ],
+              "minimum_alive": 6
+            },
+            {
+              "from_seconds": 15,
+              "types": [
+                "bat"
+              ],
+              "minimum_alive": 10
+            },
+            {
+              "from_seconds": 30,
+              "types": [
+                "bat",
+                "slime"
+              ],
+              "minimum_alive": 14
+            },
+            {
+              "from_seconds": 45,
+              "types": [
+                "slime",
+                "ghost"
+              ],
+              "minimum_alive": 17
+            },
+            {
+              "from_seconds": 60,
+              "types": [
+                "bat",
+                "ghost"
+              ],
+              "minimum_alive": 20
+            },
+            {
+              "from_seconds": 75,
+              "types": [
+                "bat",
+                "slime"
+              ],
+              "minimum_alive": 24,
+              "boss": "demon"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "normal",
+      "label": "NORMAL",
+      "text": "120 seconds  -  the numbers from GAME.md",
+      "numbers": {}
+    },
+    {
+      "name": "hard",
+      "label": "HARD",
+      "text": "140 seconds  -  same start as NORMAL, then the crowd never thins",
+      "numbers": {
+        "run": {
+          "victory_seconds": 140
+        },
+        "enemies": {
+          "demon": {
+            "hp": 1000
+          }
+        },
+        "spawning": {
+          "maximum_alive": 140,
+          "stages": [
+            {
+              "from_seconds": 0,
+              "types": [
+                "bat"
+              ],
+              "minimum_alive": 12
+            },
+            {
+              "from_seconds": 15,
+              "types": [
+                "bat"
+              ],
+              "minimum_alive": 20
+            },
+            {
+              "from_seconds": 30,
+              "types": [
+                "bat",
+                "slime"
+              ],
+              "minimum_alive": 28
+            },
+            {
+              "from_seconds": 45,
+              "types": [
+                "slime",
+                "ghost"
+              ],
+              "minimum_alive": 36
+            },
+            {
+              "from_seconds": 60,
+              "types": [
+                "bat",
+                "ghost"
+              ],
+              "minimum_alive": 45
+            },
+            {
+              "from_seconds": 75,
+              "types": [
+                "bat",
+                "slime",
+                "ghost"
+              ],
+              "minimum_alive": 55,
+              "boss": "demon"
+            },
+            {
+              "from_seconds": 90,
+              "types": [
+                "bat",
+                "slime",
+                "ghost"
+              ],
+              "minimum_alive": 66
+            },
+            {
+              "from_seconds": 105,
+              "types": [
+                "slime",
+                "ghost"
+              ],
+              "minimum_alive": 80
+            },
+            {
+              "from_seconds": 120,
+              "types": [
+                "slime",
+                "ghost"
+              ],
+              "minimum_alive": 95
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

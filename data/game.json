@@ -1,0 +1,231 @@
+{
+  "_说明": {
+    "怎么用": "这个文件放着游戏里所有的数字。改完保存，重新运行 python main.py 就生效，不用改任何代码。名字前面带下划线的键（比如这个 _说明）只是写给人看的，程序不会去读它。",
+    "单位": "带 _seconds 的是秒，带 _pixels 或者没写单位的距离都是像素；speed 是像素每秒。",
+    "simulation": {
+      "fixed_step_seconds": "游戏一步走多少秒。1/60 秒一步，所有规则都按这个固定步长推进，所以在快机器和慢机器上玩法都一样。"
+    },
+    "window": {
+      "width": "窗口宽度（像素）。GAME.md 里是 390，你改成了 500。",
+      "height": "窗口高度（像素）。GAME.md 里是 700，你改成了 600。",
+      "fps": "每秒画多少帧。只影响画面顺不顺滑，不影响游戏规则。"
+    },
+    "controls": {
+      "mouse_dead_zone": "鼠标（或手指）离主角小于这个像素数时，他就不走了。这就是“停下来”的范围。"
+    },
+    "hero": {
+      "speed": "走路速度（像素/秒）。GAME.md 里是 120，你改成了 200。",
+      "hp": "开局血量，归零就 GAME OVER。",
+      "hit_radius": "主角的受击半径（像素）。敌人中心离你小于“敌人的半径 + 这个数”时，就撞到你你了。",
+      "magnet_radius": "宝石自动飞向你的半径（像素）。"
+    },
+    "run": {
+      "victory_seconds": "活到多少秒算赢（VICTORY）。120 秒就是 2:00，右上角的计时器就是按这个数显示的。"
+    },
+    "weapons": {
+      "starting_weapon": "开局自带的那件武器。",
+      "maximum_owned": "最多同时拥有几件武器（升级卡只会在这种武器少于 3 件时给你新武器）。",
+      "maximum_level": "武器最高能升到几级。满级的东西不会再出现在卡里。",
+      "name_short_text": "name = 升级卡上显示的全名；short = 屏幕下方一行的简称；text = 卡上那行说明文字。",
+      "spark_wand": {
+        "damage": "一颗子弹的伤害（1 级时）。",
+        "damage_per_level": "每升一级，伤害多加多少。",
+        "interval_seconds": "每隔几秒开一次火。",
+        "interval_reduction_per_level": "每升一级，开火间隔缩短几秒。",
+        "spark_speed": "子弹飞行的速度（像素/秒）。",
+        "spark_count": "一次向四周发射几颗子弹。8 就是一圈均匀 8 颗，彼此相隔 45 度；其中第一颗永远朝着最近的敌人。",
+        "spin_degrees_per_second": "这一圈子弹每秒钟自己转多少度（360 度转一圈）。180 就是 2 秒转满一圈，所以火力的方向一直在扫过整个 360 度。",
+        "extra_spark_levels": "升到这几级时，子弹数再加 1。",
+        "hit_radius": "子弹自己的判定半径（像素）。",
+        "lifetime_seconds": "一颗子弹最多飞几秒，时间一到就消失，不会永远留在场上。"
+      },
+      "spin_blades": {
+        "damage": "一片刀刃的伤害（1 级时）。",
+        "damage_per_level": "每升一级伤害加多少。",
+        "blade_count": "围着主角转的刀刃有几片。",
+        "extra_blade_levels": "升到这几级时，刀刃多一片。",
+        "orbit_radius": "刀刃离主角多远（像素）。",
+        "orbit_seconds": "刀刃绕一圈要几秒。",
+        "hit_radius": "刀刃的判定半径（像素）。",
+        "hit_interval_seconds": "同一把刀刃打同一个敌人，至少要隔几秒。",
+        "备注": "刀刃的位置每帧算出来，不占内存；图片用 assets/sword.png。"
+      },
+      "holy_ring": {
+        "damage": "光环每次伤多少血。",
+        "damage_per_level": "每升一级伤害加多少。",
+        "radius": "光环半径（像素）。",
+        "radius_per_level": "每升一级半径加多少像素。",
+        "interval_seconds": "每隔几秒伤一次（一次伤到圈里所有敌人）。"
+      }
+    },
+    "passives": {
+      "maximum_level": "被动道具最高几级。满级的道具不会再出现在卡里。",
+      "swift_boots": "speed_fraction_per_level = 每升一级走路速度加百分之几（0.1 就是 +10%）。",
+      "big_heart": "max_hp_per_level = 每级增加的血量上限；heal_per_level = 拿到的那一刻回复多少血。",
+      "magnet": "radius_per_level = 每升一级，吸宝石的半径增加多少像素。"
+    },
+    "enemies": {
+      "每个敌人": "hp = 血量；speed = 追你的速度（像素/秒）；damage = 撞你一下掉多少血；xp = 死后掉的宝石值多少经验（0 就不掉宝石）；hit_radius = 受击半径（像素）；picture = 用 assets/ 里的哪张图；boss = true 表示这是 BOSS，不会被距离删掉。",
+      "bat": "蝙蝠：血少、成群。",
+      "slime": "史莱姆：慢但血厚。",
+      "ghost": "幽灵：比你还快（230 > 200），躲不掉，只能杀掉。",
+      "demon": "恶魔 BOSS：draw_scale = 2 表示它的图放大两倍来画；800 血，1:30 只出现一次。"
+    },
+    "contact": {
+      "interval_seconds": "同一个敌人贴着你时，至少要隔几秒才能再伤你一次。这样一群敌人不会一帧把你秒掉。"
+    },
+    "spawning": {
+      "interval_seconds": "每隔几秒检查一次场上敌人够不够。",
+      "maximum_per_interval": "一次最多刷几只，防止一秒钟突然挤满屏幕。",
+      "radius": "新敌人出现在离主角多远的圆周上（像素）—— 刚好在屏幕外面，所以是“从四周走过来”。",
+      "remove_distance": "普通敌人离主角超过这个距离就被删掉，稍后会重新刷到你附近。",
+      "boss_return_distance": "BOSS 不会被删：离得太远就被搬回到 radius 那个圆周上。",
+      "maximum_alive": "场上同时最多活几只。",
+      "stages": "时间推进表。from_seconds = 从第几秒开始；types = 这段时间会刷哪些敌人（每只随机挑一种）；minimum_alive = 场上至少要活几只；boss = 这一段时间第一次刷出来的 BOSS（只刷一次）。"
+    },
+    "xp": {
+      "gem_speed": "宝石被吸向主角时飞多快（像素/秒）。",
+      "first_level_cost": "升到 2 级需要多少经验（也就是第一颗宝石之外的门槛）。",
+      "cost_increase": "以后每升一级，需要的经验多增加多少（5、8、11、14……）。",
+      "card_count": "升级时给你几张卡选。",
+      "fallback_heal": "如果没有任何卡可发了（武器和被动都满级、武器也满了 3 件），就回这么多血。",
+      "gem_pictures": "宝石用哪几张图，按经验值排：第 1 个给 XP 1（蓝色），第 2 个给 XP 2（粉色）。"
+    },
+    "drawing": {
+      "floor_tile_size": "地板一张图铺多大（像素）。要和 assets/floor.png 的大小对上，才不会糊。",
+      "sprite_size": "角色和敌人的图按多大来画（像素）。make_assets.py 把 16x16 的原图放大 3 倍 = 48。",
+      "gem_size": "宝石画多大（像素）。"
+    },
+    "feel": {
+      "说明": "第 5 步的手感：声音和画面小效果。这些数字不影响游戏规则，只影响看起来/听起来怎么样。",
+      "volume": "音量，0 到 1。改 0 就是静音。",
+      "hit_gap_seconds": "两次“打中”音效之间至少要隔几秒。场上同时打中很多敌人时不会吵成一团。",
+      "gem_gap_seconds": "两次“捡到宝石”音效之间至少要隔几秒。",
+      "damage_number_seconds": "飘出来的伤害数字活几秒。",
+      "damage_number_rise_pixels": "这几秒里数字往上飘多少像素。",
+      "damage_number_maximum": "屏幕上最多同时显示几个伤害数字，太多就丢掉老的。",
+      "flash_seconds": "敌人死掉时那一下白光持续几秒。",
+      "flash_grow_pixels": "白光在持续期间往外长多少像素。",
+      "shake_seconds": "主角受伤时屏幕晃多久。",
+      "shake_pixels": "最厉害的时候晃多少像素（之后越来越小）。"
+    }
+  },
+  "simulation": {"fixed_step_seconds": 0.016666666666666666},
+  "window": {"width": 500, "height": 600, "fps": 60},
+  "controls": {"mouse_dead_zone": 12},
+  "hero": {"speed": 200, "hp": 100, "hit_radius": 12, "magnet_radius": 80},
+  "run": {"victory_seconds": 120},
+  "weapons": {
+    "starting_weapon": "spark_wand",
+    "maximum_owned": 3,
+    "maximum_level": 5,
+    "spark_wand": {
+      "name": "Spark Wand",
+      "short": "Spark",
+      "text": "Eight sparks in a ring that spins",
+      "damage": 10,
+      "damage_per_level": 3,
+      "interval_seconds": 0.8,
+      "interval_reduction_per_level": 0.08,
+      "spark_speed": 1000,
+      "spark_count": 8,
+      "spin_degrees_per_second": 180,
+      "extra_spark_levels": [3, 5],
+      "hit_radius": 4,
+      "lifetime_seconds": 2
+    },
+    "spin_blades": {
+      "name": "Spin Blades",
+      "short": "Blades",
+      "text": "Blades circle you and cut",
+      "picture": "sword.png",
+      "damage": 8,
+      "damage_per_level": 3,
+      "blade_count": 2,
+      "extra_blade_levels": [2, 4],
+      "orbit_radius": 60,
+      "orbit_seconds": 1.5,
+      "hit_radius": 8,
+      "hit_interval_seconds": 0.5
+    },
+    "holy_ring": {
+      "name": "Holy Ring",
+      "short": "Ring",
+      "text": "Burns everything close to you",
+      "damage": 5,
+      "damage_per_level": 2,
+      "radius": 50,
+      "radius_per_level": 10,
+      "interval_seconds": 0.5
+    }
+  },
+  "passives": {
+    "maximum_level": 5,
+    "swift_boots": {
+      "name": "Swift Boots",
+      "short": "Boots",
+      "text": "Walk 10% faster",
+      "speed_fraction_per_level": 0.1
+    },
+    "big_heart": {
+      "name": "Big Heart",
+      "short": "Heart",
+      "text": "+20 max HP and heal 20",
+      "max_hp_per_level": 20,
+      "heal_per_level": 20
+    },
+    "magnet": {
+      "name": "Magnet",
+      "short": "Magnet",
+      "text": "Gems fly to you from further away",
+      "radius_per_level": 30
+    }
+  },
+  "enemies": {
+    "bat": {"hp": 8, "speed": 100, "damage": 5, "xp": 1, "hit_radius": 10, "picture": "bat.png"},
+    "slime": {"hp": 30, "speed": 55, "damage": 8, "xp": 2, "hit_radius": 12, "picture": "slime.png"},
+    "ghost": {"hp": 15, "speed": 230, "damage": 6, "xp": 2, "hit_radius": 11, "picture": "ghost.png"},
+    "demon": {"hp": 800, "speed": 85, "damage": 20, "xp": 0, "hit_radius": 24,
+              "picture": "demon.png", "draw_scale": 2, "boss": true}
+  },
+  "contact": {"interval_seconds": 0.5},
+  "spawning": {
+    "interval_seconds": 1,
+    "maximum_per_interval": 8,
+    "radius": 380,
+    "remove_distance": 700,
+    "boss_return_distance": 600,
+    "maximum_alive": 120,
+    "stages": [
+      {"from_seconds": 0, "types": ["bat"], "minimum_alive": 12},
+      {"from_seconds": 15, "types": ["bat"], "minimum_alive": 20},
+      {"from_seconds": 30, "types": ["bat", "slime"], "minimum_alive": 28},
+      {"from_seconds": 45, "types": ["slime", "ghost"], "minimum_alive": 36},
+      {"from_seconds": 60, "types": ["bat", "ghost"], "minimum_alive": 45},
+      {"from_seconds": 75, "types": ["bat", "slime", "ghost"], "minimum_alive": 55},
+      {"from_seconds": 90, "types": ["bat", "slime"], "minimum_alive": 55, "boss": "demon"},
+      {"from_seconds": 105, "types": ["bat"], "minimum_alive": 75}
+    ]
+  },
+  "xp": {
+    "gem_speed": 300,
+    "first_level_cost": 5,
+    "cost_increase": 3,
+    "card_count": 3,
+    "fallback_heal": 30,
+    "gem_pictures": ["gem_blue.png", "gem_pink.png"]
+  },
+  "drawing": {"floor_tile_size": 48, "sprite_size": 48, "gem_size": 24},
+  "feel": {
+    "volume": 0.6,
+    "hit_gap_seconds": 0.06,
+    "gem_gap_seconds": 0.06,
+    "damage_number_seconds": 0.7,
+    "damage_number_rise_pixels": 42,
+    "damage_number_maximum": 24,
+    "flash_seconds": 0.22,
+    "flash_grow_pixels": 22,
+    "shake_seconds": 0.25,
+    "shake_pixels": 7
+  }
+}
